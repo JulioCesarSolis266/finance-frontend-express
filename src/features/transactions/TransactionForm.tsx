@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function TransactionForm({ onCreated }: Props) {
-  const [type, setType] = useState<"INCOME" | "EXPENSE" | "">("");
+  const [type, setType] = useState<"income" | "expense" | "">("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -37,7 +37,6 @@ export default function TransactionForm({ onCreated }: Props) {
       date,
       description,
       categoryId,
-      type,
     });
 
     setAmount("");
@@ -67,15 +66,15 @@ export default function TransactionForm({ onCreated }: Props) {
           <select
             value={type}
             onChange={(e) => {
-              setType(e.target.value as "INCOME" | "EXPENSE");
+              setType(e.target.value as "income" | "expense");
               setCategoryId("");
             }}
             required
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
           >
             <option value="">Seleccionar tipo</option>
-            <option value="INCOME">Ingreso</option>
-            <option value="EXPENSE">Gasto</option>
+            <option value="income">Ingreso</option>
+            <option value="expense">Gasto</option>
           </select>
         </div>
 
