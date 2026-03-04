@@ -155,19 +155,22 @@ export default function BalanceSection() {
 
           {/* Gráfico */}
           {chartData.length > 0 && (
-            <div className="h-64">
-              <ResponsiveContainer>
+            <div className="w-full h-64 min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={chartData}
                     dataKey="value"
                     nameKey="name"
-                    outerRadius={80}
+                    outerRadius="80%"
+                    cx="50%"
+                    cy="50%"
                   >
                     {chartData.map((_, index) => (
                       <Cell key={index} fill={COLORS[index]} />
                     ))}
                   </Pie>
+
                   <Tooltip />
                   <Legend />
                 </PieChart>

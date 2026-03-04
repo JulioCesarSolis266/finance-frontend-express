@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./features/auth/LoginPage";
+import RegisterPage from "./features/auth/RegisterPage";
 import ProtectedRoute from "./app/ProtectedRoute";
 import DashboardPage from "./features/dashboard/DashboardPage";
 import AppLayout from "./components/layout/AppLayout";
@@ -12,7 +13,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/dashboard"
           element={

@@ -1,27 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../../shared/api/axios";
 
-export default function LoginPage() {
-  const { login } = useAuth();
+export default function RegisterPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Detectamos si estamos en /register o /login
-  const isRegisterRoute = location.pathname === "/register";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // 🔥 Resetear inputs cuando cambia la ruta
-  useEffect(() => {
-    setEmail("");
-    setPassword("");
-    setError("");
-  }, [isRegisterRoute]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,24 +17,14 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      if (isRegisterRoute) {
-        // Registro
-        await api.post("/auth/register", {
-          email,
-          password,
-        });
+      await api.post("/auth/register", {
+        email,
+        password,
+      });
 
-        // Login automático después de registrar
-        await login({ email, password });
-      } else {
-        // Login
-        await login({ email, password });
-      }
-
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err: any) {
-      const message =
-        err?.response?.data?.error || "Error al procesar la solicitud";
+      const message = err?.response?.data?.error || "Error al crear la cuenta";
 
       setError(message);
     } finally {
@@ -58,20 +35,20 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-        {/* Header */}
         <div className="text-center">
-          <h2 className="text-2xl font-semibold">
-            {isRegisterRoute ? "Crear Cuenta" : "Iniciar Sesión"}
-          </h2>
+          <h2 className="text-2xl font-semibold">Crear Cuenta</h2>
           <p className="text-sm text-slate-500 mt-1">
-            {isRegisterRoute
-              ? "Regístrate para comenzar"
-              : "Ingresa a tu cuenta"}
+            Regístrate para comenzar
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* 🔥 KEY IMPORTANTE */}
+        <form
+          key="register-form"
+          onSubmit={handleSubmit}
+          className="space-y-4"
+          autoComplete="off"
+        >
           {/* Email */}
           <div>
             <label className="text-sm font-medium">Email</label>
@@ -99,40 +76,24 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Error */}
           {error && <p className="text-sm text-red-600">{error}</p>}
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition disabled:opacity-50"
           >
-            {loading
-              ? "Procesando..."
-              : isRegisterRoute
-                ? "Crear cuenta"
-                : "Ingresar"}
+            {loading ? "Creando cuenta..." : "Crear cuenta"}
           </button>
         </form>
 
-        {/* Toggle Link */}
         <div className="text-center text-sm">
-          {isRegisterRoute ? (
-            <p>
-              ¿Ya tienes cuenta?{" "}
-              <Link to="/login" className="text-indigo-600 font-medium">
-                Iniciar sesión
-              </Link>
-            </p>
-          ) : (
-            <p>
-              ¿No tienes cuenta?{" "}
-              <Link to="/register" className="text-indigo-600 font-medium">
-                Crear cuenta
-              </Link>
-            </p>
-          )}
+          <p>
+            ¿Ya tienes cuenta?{" "}
+            <Link to="/login" className="text-indigo-600 font-medium">
+              Iniciar sesión
+            </Link>
+          </p>
         </div>
       </div>
     </div>
