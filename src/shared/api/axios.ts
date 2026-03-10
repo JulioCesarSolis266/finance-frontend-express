@@ -1,8 +1,8 @@
-// src/shared/api/axios.ts
+// This file sets up an Axios instance for making API requests, with a base URL and an interceptor to include the authorization token in the headers of each request.
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL + "/api", // ajusta a tu backend
+  baseURL: import.meta.env.VITE_API_URL + "/api",
 });
 
 api.interceptors.request.use((config) => {
