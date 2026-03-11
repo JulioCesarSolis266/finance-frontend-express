@@ -47,7 +47,6 @@ export default function TransactionForm({ onCreated }: Props) {
 
     onCreated();
   };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>

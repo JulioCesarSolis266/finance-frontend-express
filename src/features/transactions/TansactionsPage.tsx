@@ -70,6 +70,9 @@ export default function TransactionsPage() {
                     Descripción
                   </th>
                   <th className="px-4 py-3 font-medium text-slate-600">
+                    Categoria
+                  </th>
+                  <th className="px-4 py-3 font-medium text-slate-600">
                     Monto
                   </th>
                   <th className="px-4 py-3 font-medium text-slate-600">Tipo</th>
@@ -92,6 +95,10 @@ export default function TransactionsPage() {
                     >
                       <td className="px-4 py-3 text-slate-900">
                         {t.description}
+                      </td>
+
+                      <td className="px-4 py-3 text-slate-600">
+                        {t.category?.name || "Sin categoría"}
                       </td>
 
                       <td className="px-4 py-3 font-medium">

@@ -1,9 +1,8 @@
 import api from "../../shared/api/axios"; // tu instancia axios
 import type { Transaction } from "./transactions.types";
-
 const getAll = async (): Promise<Transaction[]> => {
-  const { data } = await api.get("/transactions");
-  return data.transactions;
+  const response = await api.get("/transactions");
+  return response.data.transactions;
 };
 
 const create = async (payload: {
