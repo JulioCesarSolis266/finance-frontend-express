@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import transactionService from "./transaction.service";
-import type { Transaction, TransactionType } from "./transactions.types";
-import { TRANSACTION_LABEL } from "./transactions.types";
+import type { Transaction } from "./transactions.types";
 import TransactionForm from "./TransactionForm";
 import Card from "../../shared/components/ui/Card";
 import { formatCurrency } from "@/shared/utils/format";
@@ -85,9 +84,7 @@ export default function TransactionsPage() {
 
               <tbody className="divide-y divide-gray-200">
                 {transactions.map((t) => {
-                  console.log("TYPE:", `"${t.type}"`);
                   const isIncome = t.type === "INCOME";
-                  console.log("Transactionssss:", transactions);
                   return (
                     <tr
                       key={t.id}
@@ -109,7 +106,7 @@ export default function TransactionsPage() {
                               : "bg-red-100 text-red-700"
                           }`}
                         >
-                          {TRANSACTION_LABEL[t.type]}
+                          {isIncome ? "Ingreso" : "Gasto"}
                         </span>
                       </td>
 

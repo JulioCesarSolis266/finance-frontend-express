@@ -3,7 +3,6 @@ import type { Transaction } from "./transactions.types";
 
 const getAll = async (): Promise<Transaction[]> => {
   const { data } = await api.get("/transactions");
-  console.log(data);
   return data.transactions;
 };
 
