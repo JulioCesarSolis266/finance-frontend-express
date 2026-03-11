@@ -85,8 +85,9 @@ export default function TransactionsPage() {
 
               <tbody className="divide-y divide-gray-200">
                 {transactions.map((t) => {
+                  console.log("TYPE:", `"${t.type}"`);
                   const isIncome = t.type === "INCOME";
-
+                  console.log("Transactionssss:", transactions);
                   return (
                     <tr
                       key={t.id}
