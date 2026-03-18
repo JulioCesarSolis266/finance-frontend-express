@@ -32,13 +32,13 @@ export default function Sidebar() {
       {/* Drawer mobile + Sidebar desktop */}
       <aside
         className={`
-          fixed top-0 left-0 h-full w-64 bg-amber-500 text-white z-50
-          transform transition-transform duration-300
+    fixed top-0 left-0 h-full w-64 bg-amber-500 text-white z-50
+    transform transition-transform duration-300
 
-          ${open ? "translate-x-0" : "-translate-x-full"}
+    ${open ? "translate-x-0" : "-translate-x-full"}
 
-          md:translate-x-0 md:static md:flex md:flex-col md:h-screen
-        `}
+    md:translate-x-0 md:sticky md:top-0 md:flex md:flex-col md:h-screen
+  `}
       >
         {/* Header */}
         <div className="px-6 py-6 border-b border-amber-600 flex justify-between items-center">
