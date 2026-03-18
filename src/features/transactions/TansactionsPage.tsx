@@ -42,7 +42,7 @@ export default function TransactionsPage() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Título */}
+      {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold text-slate-900">Transacciones</h1>
         <p className="text-sm text-slate-500 mt-1">
@@ -55,86 +55,143 @@ export default function TransactionsPage() {
         <TransactionForm onCreated={reload} />
       </Card>
 
-      {/* Tabla */}
+      {/* Lista */}
       <Card>
         {transactions.length === 0 ? (
           <p className="text-sm text-slate-500">
             No hay transacciones registradas.
           </p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm text-left">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 font-medium text-slate-600">
-                    Descripción
-                  </th>
-                  <th className="px-4 py-3 font-medium text-slate-600">
-                    Categoria
-                  </th>
-                  <th className="px-4 py-3 font-medium text-slate-600">
-                    Monto
-                  </th>
-                  <th className="px-4 py-3 font-medium text-slate-600">Tipo</th>
-                  <th className="px-4 py-3 font-medium text-slate-600">
-                    Fecha
-                  </th>
-                  <th className="px-4 py-3 font-medium text-slate-600">
-                    Acciones
-                  </th>
-                </tr>
-              </thead>
+          <>
+            {/* MOBILE → Cards */}
+            <div className="space-y-3 sm:hidden">
+              {transactions.map((t) => {
+                const isIncome = t.type === "INCOME";
 
-              <tbody className="divide-y divide-gray-200">
-                {transactions.map((t) => {
-                  const isIncome = t.type === "INCOME";
-                  return (
-                    <tr
-                      key={t.id}
-                      className="hover:bg-gray-50 transition-colors"
-                    >
-                      <td className="px-4 py-3 text-slate-900">
+                return (
+                  <div
+                    key={t.id}
+                    className="border rounded-lg p-4 bg-white shadow-sm space-y-2"
+                  >
+                    <div className="flex justify-between items-start gap-2">
+                      <p className="font-medium text-slate-900 leading-tight">
                         {t.description}
-                      </td>
+                      </p>
 
-                      <td className="px-4 py-3 text-slate-600">
-                        {t.category?.name || "Sin categoría"}
-                      </td>
+                      <span
+                        className={`text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap ${
+                          isIncome
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {isIncome ? "Ingreso" : "Gasto"}
+                      </span>
+                    </div>
 
-                      <td className="px-4 py-3 font-medium">
+                    <p className="text-sm text-slate-500">
+                      {t.category?.name || "Sin categoría"}
+                    </p>
+
+                    <div className="flex justify-between items-center">
+                      <p className="font-semibold text-slate-900">
                         {formatCurrency(t.amount)}
-                      </td>
+                      </p>
 
-                      <td className="px-4 py-3">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            isIncome
-                              ? "bg-green-100 text-green-700"
-                              : "bg-red-100 text-red-700"
-                          }`}
-                        >
-                          {isIncome ? "Ingreso" : "Gasto"}
-                        </span>
-                      </td>
-
-                      <td className="px-4 py-3 text-slate-600">
+                      <p className="text-xs text-slate-500">
                         {new Date(t.date).toLocaleDateString()}
-                      </td>
+                      </p>
+                    </div>
 
-                      <td className="px-4 py-3">
-                        <button
-                          onClick={() => handleDelete(t.id)}
-                          className="text-sm font-medium text-red-600 hover:text-red-800 transition-colors"
-                        >
-                          Eliminar
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                    <button
+                      onClick={() => handleDelete(t.id)}
+                      className="text-sm font-medium text-red-600 hover:text-red-800 transition-colors"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* DESKTOP → Tabla */}
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="min-w-full text-sm text-left">
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Descripción
+                    </th>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Categoría
+                    </th>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Monto
+                    </th>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Tipo
+                    </th>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Fecha
+                    </th>
+                    <th className="px-4 py-3 font-medium text-slate-600">
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-gray-200">
+                  {transactions.map((t) => {
+                    const isIncome = t.type === "INCOME";
+
+                    return (
+                      <tr
+                        key={t.id}
+                        className="hover:bg-gray-50 transition-colors"
+                      >
+                        <td className="px-4 py-3 text-slate-900">
+                          {t.description}
+                        </td>
+
+                        <td className="px-4 py-3 text-slate-600">
+                          {t.category?.name || "Sin categoría"}
+                        </td>
+
+                        <td className="px-4 py-3 font-medium">
+                          {formatCurrency(t.amount)}
+                        </td>
+
+                        <td className="px-4 py-3">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              isIncome
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            {isIncome ? "Ingreso" : "Gasto"}
+                          </span>
+                        </td>
+
+                        <td className="px-4 py-3 text-slate-600">
+                          {new Date(t.date).toLocaleDateString()}
+                        </td>
+
+                        <td className="px-4 py-3">
+                          <button
+                            onClick={() => handleDelete(t.id)}
+                            className="text-sm font-medium text-red-600 hover:text-red-800 transition-colors"
+                          >
+                            Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </Card>
     </div>
