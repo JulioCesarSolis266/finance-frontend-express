@@ -36,7 +36,6 @@ export default function MonthlySection() {
         month: item.month,
         total: Number(item.total),
       }));
-
       setData(normalized);
     } catch {
       setError("Error al cargar el resumen mensual");
