@@ -54,7 +54,7 @@ export default function TransactionsPage() {
       <Card>
         <TransactionForm onCreated={reload} />
       </Card>
-      <h2 className="text-2xl font-semibold text-slate-900">
+      <h2 className="text-2xl font-semibold text-slate-900 pt-7">
         Historial de transacciones
       </h2>
       {/* Lista */}
