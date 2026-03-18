@@ -54,7 +54,9 @@ export default function TransactionsPage() {
       <Card>
         <TransactionForm onCreated={reload} />
       </Card>
-
+      <h2 className="text-2xl font-semibold text-slate-900">
+        Historial de transacciones
+      </h2>
       {/* Lista */}
       <Card>
         {transactions.length === 0 ? (
@@ -113,7 +115,6 @@ export default function TransactionsPage() {
                 );
               })}
             </div>
-
             {/* DESKTOP → Tabla */}
             <div className="hidden sm:block overflow-x-auto">
               <table className="min-w-full text-sm text-left">
